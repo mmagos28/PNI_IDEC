@@ -1,6 +1,6 @@
 # Neuropixels 2.0 Implant Designs
 
-This folder contains 3D-printable implant designs for Neuropixels 2.0 multi-shank probes. The designs were manufactured on a Formlabs Form 4BL SLA 3D printer using Precision material at a layer resolution of 0.05 mm.
+This folder contains 3D-printable implant designs for Neuropixels 2.0 multi-shank probes. The designs were manufactured on a Formlabs Form 4BL SLA 3D printer using Precision and Clear material at a layer resolution of 0.05 mm.
 
 For detailed assembly instructions, refer to the [Neuropixels 2.0 two-probe implant assembly guide](https://github.com/mmagos28/PNI_IDEC/blob/main/Witten%20Lab/NPX-Project/Neuropixels_2.0_Implant_two_probes_Assembly_Witten.docx.pdf).
 
