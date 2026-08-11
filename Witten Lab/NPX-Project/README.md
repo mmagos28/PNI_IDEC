@@ -2,6 +2,8 @@
 
 This folder contains 3D-printable implant designs for Neuropixels 2.0 multi-shank probes. The designs were manufactured on a Formlabs Form 4BL SLA 3D printer using Precision material at a layer resolution of 0.05 mm.
 
+For detailed assembly instructions, refer to the [Neuropixels 2.0 two-probe implant assembly guide](https://github.com/mmagos28/PNI_IDEC/blob/main/Witten%20Lab/NPX-Project/Neuropixels_2.0_Implant_two_probes_Assembly_Witten.docx.pdf).
+
 The highest available printer resolution was not used intentionally. In practice, the relevant tolerances varied between Neuropixels probes and during post-processing of the printed parts. For this reason, 0.05 mm was selected as the standard manufacturing resolution for these components.
 
 ## Design Rationale
@@ -41,4 +43,3 @@ For Neuropixels probes with a metal cap, 2.5 mm is currently the minimum shank-t
 ## No Dovetail Designs
 
 The no-dovetail holder is intended for Neuropixels probes with a silicon cap. Under this configuration, the closest shank-to-shank spacing achieved so far is 1.5 mm.
-
