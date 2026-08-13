@@ -1,6 +1,6 @@
 # Fly Holder Assembly Jig
 
-This folder contains jig components for assembling fly holders. The parts were manufactured on a Formlabs Form 4BL SLA 3D printer using Gray resin at a layer resolution of 0.05 mm.
+This folder contains jig components for assembling fly holders. The parts were manufactured on a Formlabs Form 4BL SLA 3D printer using Gray resin at a layer resolution of 0.025 mm.
 
 Two jig orientations are provided:
 
