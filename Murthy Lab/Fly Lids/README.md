@@ -4,8 +4,19 @@
 
 - Clear easy-to-form PETG sheet, 6 in x 6 in x 1/8 in.
 - Reference material: [McMaster-Carr 85815K114](https://eprocurement.mcmaster.com/85815K114/?publication=ecmrc&pnchstp=2&combine_content=true).
+- Water-resistant sandpaper.
 
-## Method
+## Mold Preparation
+
+1. Print the mold pieces at 0.025 mm layer resolution, using the highest available resolution for the printer.
+
+2. Wash the printed mold pieces to remove uncured resin.
+
+3. Cure the pieces according to the resin manufacturer's recommendations.
+
+4. Once the parts are fully cured, use water-resistant sandpaper to smooth the cup area of the mold. This step helps remove visible layer lines from the print and produces a more uniform surface for shaping the PETG.
+
+## PETG Lid Forming
 
 1. Print the cutting template from the provided Adobe Illustrator file (`PETG-design-lids.ai`).
 
