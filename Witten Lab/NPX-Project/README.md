@@ -1,4 +1,4 @@
-# Neuropixels 2.0 Implant Designs
+﻿# Neuropixels 2.0 Implant Designs
 
 This folder contains 3D-printable implant designs for Neuropixels 2.0 multi-shank probes. The designs were manufactured on a Formlabs Form 4BL SLA 3D printer using Precision and Clear material at a layer resolution of 0.05 mm.
 
@@ -43,3 +43,7 @@ For Neuropixels probes with a metal cap, 2.5 mm is currently the minimum shank-t
 ## No Dovetail Designs
 
 The no-dovetail holder is intended for Neuropixels probes with a silicon cap. Under this configuration, the closest shank-to-shank spacing achieved so far is 1.5 mm.
+## License
+
+This design folder is licensed under the CERN Open Hardware Licence Version 2 - Permissive (CERN-OHL-P-2.0). See [LICENSE](LICENSE) for the full license text.
+

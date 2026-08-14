@@ -1,4 +1,4 @@
-# Juice Spout
+﻿# Juice Spout
 ## Materials
 Brass Barbed Hose Fitting for Air and Water
 Straight Adapter for 1/8" Hose ID, 1/8 NPTF Male
@@ -20,4 +20,7 @@ The image below provides a quick visual reference for the files in this folder.
 <img src="Juice-spout.png" alt="Juice Spout" width="600">
 
 <!-- IMAGE_GALLERY_END -->
+## License
+
+This design folder is licensed under the CERN Open Hardware Licence Version 2 - Permissive (CERN-OHL-P-2.0). See [LICENSE](LICENSE) for the full license text.
 

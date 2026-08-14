@@ -1,4 +1,4 @@
-# Fly Lids
+﻿# Fly Lids
 
 ## Materials
 
@@ -50,3 +50,7 @@ The images below provide a quick visual reference for the files in this folder.
 <img src="Fly_stage_for_lids.png" alt="Fly Stage for Lids" width="600">
 
 <!-- IMAGE_GALLERY_END -->
+## License
+
+This design folder is licensed under the CERN Open Hardware Licence Version 2 - Permissive (CERN-OHL-P-2.0). See [LICENSE](LICENSE) for the full license text.
+

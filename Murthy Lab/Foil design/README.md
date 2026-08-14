@@ -1,4 +1,4 @@
-# Foil Design
+﻿# Foil Design
 
 This folder contains the design files for the foil used with the fly holder assembly jig.
 
@@ -12,4 +12,7 @@ This folder contains the design files for the foil used with the fly holder asse
 
 - Tolerances: +/- 0.002 in.
 - Material: 0.001 in stainless steel 316, annealed.
+## License
+
+This design folder is licensed under the CERN Open Hardware Licence Version 2 - Permissive (CERN-OHL-P-2.0). See [LICENSE](LICENSE) for the full license text.
 
