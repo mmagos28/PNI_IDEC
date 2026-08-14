@@ -9,6 +9,8 @@ Two jig orientations are provided:
 
 The experimenter can select the orientation that best matches the holder model and assembly workflow being used.
 
+The foil used with this jig is documented in the [Foil design](../Foil%20design) folder.
+
 ## Printing Notes
 
 - The ready-to-print setup files are the `.form` files:
@@ -35,7 +37,7 @@ Once the pieces are clean, dry, fully cured, and sanded where needed, proceed wi
 
 <img src="tutorial-2.png" alt="Place the holder in the jig" width="600">
 
-3. Cut the foil to the size required for the selected fly holder. Place the foil over the holder, align the perforated holes with the holder, and apply a small drop of cyanoacrylate glue, such as Crazy Glue, to each hole.
+3. Cut the foil to the size required for the selected fly holder, using the design files in the [Foil design](../Foil%20design) folder as reference. Place the foil over the holder, align the perforated holes with the holder, and apply a small drop of cyanoacrylate glue, such as Crazy Glue, to each hole.
 
 <img src="tutorial-3.png" alt="Align the foil and apply glue" width="600">
 
