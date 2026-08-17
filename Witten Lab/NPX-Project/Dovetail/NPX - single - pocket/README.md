@@ -13,10 +13,10 @@ The images below provide a quick visual reference for the files in this folder.
 
 ### Npx Single Pocket Iso
 
-<img src="NPX%20-%20single%20-%20pocket%20-%20ISO.png" alt="Npx Single Pocket Iso" width="600">
+<img src="https://raw.githubusercontent.com/mmagos28/PNI_IDEC/main/Witten%20Lab/NPX-Project/Dovetail/NPX%20-%20single%20-%20pocket/NPX%20-%20single%20-%20pocket%20-%20ISO.png" alt="Npx Single Pocket Iso" width="600">
 
 ### Npx Single Pocket
 
-<img src="NPX%20-%20single%20-%20pocket.png" alt="Npx Single Pocket" width="600">
+<img src="https://raw.githubusercontent.com/mmagos28/PNI_IDEC/main/Witten%20Lab/NPX-Project/Dovetail/NPX%20-%20single%20-%20pocket/NPX%20-%20single%20-%20pocket.png" alt="Npx Single Pocket" width="600">
 
 <!-- IMAGE_GALLERY_END -->

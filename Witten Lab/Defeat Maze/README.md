@@ -7,7 +7,7 @@ The image below provides a quick visual reference for the files in this folder.
 
 ### Defeat Maze
 
-<img src="defeat%20maze.png" alt="Defeat Maze" width="600">
+<img src="https://raw.githubusercontent.com/mmagos28/PNI_IDEC/main/Witten%20Lab/Defeat%20Maze/defeat%20maze.png" alt="Defeat Maze" width="600">
 
 <!-- IMAGE_GALLERY_END -->
 ## License

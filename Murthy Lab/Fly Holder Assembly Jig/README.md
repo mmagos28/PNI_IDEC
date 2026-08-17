@@ -31,19 +31,19 @@ Once the pieces are clean, dry, fully cured, and sanded where needed, proceed wi
 
 1. Select the jig orientation that matches the model you want to assemble.
 
-<img src="tutorial-1.png" alt="Select the jig model" width="600">
+<img src="https://raw.githubusercontent.com/mmagos28/PNI_IDEC/main/Murthy%20Lab/Fly%20Holder%20Assembly%20Jig/tutorial-1.png" alt="Select the jig model" width="600">
 
 2. Place the holder or dissection chamber inside the assembly jig.
 
-<img src="tutorial-2.png" alt="Place the holder in the jig" width="600">
+<img src="https://raw.githubusercontent.com/mmagos28/PNI_IDEC/main/Murthy%20Lab/Fly%20Holder%20Assembly%20Jig/tutorial-2.png" alt="Place the holder in the jig" width="600">
 
 3. Cut the foil to the size required for the selected fly holder, using the design files in the [Foil design](../Foil%20design) folder as reference. Place the foil over the holder, align the perforated holes with the holder, and apply a small drop of cyanoacrylate glue, such as Crazy Glue, to each hole.
 
-<img src="tutorial-3.png" alt="Align the foil and apply glue" width="600">
+<img src="https://raw.githubusercontent.com/mmagos28/PNI_IDEC/main/Murthy%20Lab/Fly%20Holder%20Assembly%20Jig/tutorial-3.png" alt="Align the foil and apply glue" width="600">
 
 4. Close the jig. This locks the foil position and creates the bends exactly where they are needed.
 
-<img src="tutorial-4.png" alt="Close the jig" width="600">
+<img src="https://raw.githubusercontent.com/mmagos28/PNI_IDEC/main/Murthy%20Lab/Fly%20Holder%20Assembly%20Jig/tutorial-4.png" alt="Close the jig" width="600">
 
 5. Once the foil is correctly positioned and fixed to the holder, apply epoxy around the foil edges. This seals the interface and helps prevent leaks, since liquid will be placed inside the holder during use.
 

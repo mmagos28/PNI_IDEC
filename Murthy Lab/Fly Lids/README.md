@@ -39,15 +39,15 @@ The images below provide a quick visual reference for the files in this folder.
 
 ### Fly Lid PETG Mold
 
-<img src="Fly_lid_PETG_mold.png" alt="Fly Lid PETG Mold" width="600">
+<img src="https://raw.githubusercontent.com/mmagos28/PNI_IDEC/main/Murthy%20Lab/Fly%20Lids/Fly_lid_PETG_mold.png" alt="Fly Lid PETG Mold" width="600">
 
 ### Fly Lid PETG Mold Interior
 
-<img src="Fly_lid_PETG_mold-1.png" alt="Fly Lid PETG Mold Interior" width="600">
+<img src="https://raw.githubusercontent.com/mmagos28/PNI_IDEC/main/Murthy%20Lab/Fly%20Lids/Fly_lid_PETG_mold-1.png" alt="Fly Lid PETG Mold Interior" width="600">
 
 ### Fly Stage for Lids
 
-<img src="Fly_stage_for_lids.png" alt="Fly Stage for Lids" width="600">
+<img src="https://raw.githubusercontent.com/mmagos28/PNI_IDEC/main/Murthy%20Lab/Fly%20Lids/Fly_stage_for_lids.png" alt="Fly Stage for Lids" width="600">
 
 <!-- IMAGE_GALLERY_END -->
 ## License

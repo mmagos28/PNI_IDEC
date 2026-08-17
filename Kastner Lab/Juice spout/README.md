@@ -17,7 +17,7 @@ The image below provides a quick visual reference for the files in this folder.
 
 ### Juice Spout
 
-<img src="Juice-spout.png" alt="Juice Spout" width="600">
+<img src="https://raw.githubusercontent.com/mmagos28/PNI_IDEC/main/Kastner%20Lab/Juice%20spout/Juice-spout.png" alt="Juice Spout" width="600">
 
 <!-- IMAGE_GALLERY_END -->
 ## License
