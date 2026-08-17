@@ -1,4 +1,4 @@
-﻿# npx-wings-15mm
+# npx-wings-15mm
 
 ## Printing Notes
 
@@ -20,7 +20,3 @@ The images below provide a quick visual reference for the files in this folder.
 <img src="NPX%20-%2015mm%20-%20sideview.png" alt="Npx 15Mm Sideview" width="600">
 
 <!-- IMAGE_GALLERY_END -->
-
-
-
-

@@ -1,4 +1,4 @@
-﻿# NPX - single - pocket
+# NPX - single - pocket
 
 ## Printing Notes
 
@@ -20,7 +20,3 @@ The images below provide a quick visual reference for the files in this folder.
 <img src="NPX%20-%20single%20-%20pocket.png" alt="Npx Single Pocket" width="600">
 
 <!-- IMAGE_GALLERY_END -->
-
-
-
-

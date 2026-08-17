@@ -1,4 +1,4 @@
-﻿# NPX - double - 2.5 mm
+# NPX - double - 2.5 mm
 
 ## Printing Notes
 
@@ -24,7 +24,3 @@ The images below provide a quick visual reference for the files in this folder.
 <img src="NPX%20-%20double%20-%202.5%20mm%20-%20sideview.png" alt="Npx Double 2.5 Mm Sideview" width="600">
 
 <!-- IMAGE_GALLERY_END -->
-
-
-
-

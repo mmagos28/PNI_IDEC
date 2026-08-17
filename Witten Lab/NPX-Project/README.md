@@ -1,4 +1,4 @@
-﻿# Neuropixels 2.0 Implant Designs
+# Neuropixels 2.0 Implant Designs
 
 This folder contains 3D-printable implant designs for Neuropixels 2.0 multi-shank probes. The designs were manufactured on a Formlabs Form 4BL SLA 3D printer using Precision and Clear material at a layer resolution of 0.05 mm.
 
@@ -46,4 +46,3 @@ The no-dovetail holder is intended for Neuropixels probes with a silicon cap. Un
 ## License
 
 This design folder is licensed under the CERN Open Hardware Licence Version 2 - Permissive (CERN-OHL-P-2.0). See [LICENSE](LICENSE) for the full license text.
-

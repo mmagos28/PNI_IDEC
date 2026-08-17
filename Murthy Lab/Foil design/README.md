@@ -1,4 +1,4 @@
-﻿# Foil Design
+# Foil Design
 
 This folder contains the design files for the foil used with the fly holder assembly jig.
 
@@ -15,4 +15,3 @@ This folder contains the design files for the foil used with the fly holder asse
 ## License
 
 This design folder is licensed under the CERN Open Hardware Licence Version 2 - Permissive (CERN-OHL-P-2.0). See [LICENSE](LICENSE) for the full license text.
-

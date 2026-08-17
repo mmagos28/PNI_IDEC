@@ -1,4 +1,4 @@
-﻿# NPX-L Shape
+# NPX-L Shape
 
 <!-- IMAGE_GALLERY_START -->
 ## Image Gallery
@@ -21,4 +21,3 @@ The images below provide a quick visual reference for the files in this folder.
 ## License
 
 This design folder is licensed under the CERN Open Hardware Licence Version 2 - Permissive (CERN-OHL-P-2.0). See [LICENSE](LICENSE) for the full license text.
-

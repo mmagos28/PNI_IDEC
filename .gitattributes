@@ -1,2 +1,16 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+# Keep design and media assets binary in Git.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.bmp binary
+*.tif binary
+*.tiff binary
+*.pdf binary
+*.stl binary
+*.form binary
+*.f3d binary
+*.ai binary
