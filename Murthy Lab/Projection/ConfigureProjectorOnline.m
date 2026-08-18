@@ -1,5 +1,5 @@
 function varargout = ConfigureProjectorOnline(varargin)
-% CONFIGUREPROJECTORONLINE MATLAB code for ConfigureProjector.fig
+% CONFIGUREPROJECTORONLINE MATLAB code for ConfigureProjectorOnline.fig
 %      CONFIGUREPROJECTORONLINE, by itself, creates a new CONFIGUREPROJECTORONLINE or raises the existing
 %      singleton*.
 %
@@ -57,8 +57,10 @@ function ConfigureProjectorOnline_OpeningFcn(hObject, eventdata, handles, vararg
 
 % Choose default command line output for ConfigureProjectorOnline
 handles.output = hObject;
+addV2CalibrationPath();
 handles = loadSavedCoordsIntoGui(handles);
 handles = setupOnlineCalibrationControls(handles, hObject);
+handles = setupPatternModeControl(handles, hObject);
 
 % Update handles structure
 guidata(hObject, handles);
@@ -86,49 +88,36 @@ global h4 seth4
 % hObject    handle to regenerateStim (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-    screenRadius_ = str2num(get(handles.screenRadius,'String'));
-    screenX_ = str2num(get(handles.screenX,'String'));
-    screenY_ = str2num(get(handles.screenY,'String'));
-    screenZ_ = str2num(get(handles.screenZ,'String'));
-    
-    mirrorRadius_ = str2num(get(handles.mirrorRadius,'String'));
-    mirrorX_ = str2num(get(handles.mirrorX,'String'));
-    mirrorY_ = str2num(get(handles.mirrorY,'String'));
-    mirrorZ_ = str2num(get(handles.mirrorZ,'String'));
-    
-    projectorX_ = str2num(get(handles.projectorX,'String'));
-    projectorY_ = str2num(get(handles.projectorY,'String'));
-    projectorZ_ = str2num(get(handles.projectorZ,'String'));
-    
-    x0_ = str2num(get(handles.x0,'String'));
-    y0_ = str2num(get(handles.y0,'String'));
-    x1_ = str2num(get(handles.x1,'String'));
-    y1_ = str2num(get(handles.y1,'String'));
-    x2_ = str2num(get(handles.x2,'String'));
-    y2_ = str2num(get(handles.y2,'String'));
+    parentFigure = getParentFigure(hObject, handles);
+    if ~isempty(parentFigure)
+        handles = guidata(parentFigure);
+    end
 
 %     seth4
-    if isempty(seth4)
+    if isempty(seth4) || isempty(h4) || ~ishandle(h4)
         seth4 = 1;
         h4=figure('OuterPosition',[10 10 1280 800]);
 %             h4=figure('OuterPosition',[0 0 1 1]);
 %         disp('ok?')
     end
-    h4 = generateDome_shruthi(screenRadius_,screenX_,screenY_,screenZ_, mirrorRadius_,mirrorX_,mirrorY_,mirrorZ_, projectorX_,projectorY_,projectorZ_, ...
-        x0_,y0_,x1_,y1_,x2_,y2_,h4);
-    
-   if exist('visualizeCalibratedBallImage', 'file') == 2
-       try
-           visualizeCalibratedBallImage(fullfile(pwd, 'calibratedBallImage.data'), 'points', 2, 'white');
-       catch ME
-           warning('ConfigureProjectorOnline:PreviewFailed', ...
-               'Could not preview calibratedBallImage.data: %s', ME.message);
+
+    if shouldUseVisualGrid(handles)
+        [coords, isValid] = tryReadCalibrationCoords(handles);
+        if ~isValid
+            return;
         end
+        drawVisualCalibrationGrid(h4, coords);
+        return;
     end
 
-        
+    [coords, isValid] = tryReadCalibrationCoords(handles);
+    if ~isValid
+        return;
+    end
 
-
+    h4 = generateDome_MASM(coords.screenRadius_,coords.screenX_,coords.screenY_,coords.screenZ_, coords.mirrorRadius_,coords.mirrorX_,coords.mirrorY_,coords.mirrorZ_, coords.projectorX_,coords.projectorY_,coords.projectorZ_, ...
+        coords.x0_,coords.y0_,coords.x1_,coords.y1_,coords.x2_,coords.y2_,h4);
+    % Run visualizeCalibratedBallImage manually when a separate .data preview is needed.
 
 function mirrorRadius_Callback(hObject, eventdata, handles)
 % hObject    handle to mirrorRadius (see GCBO)
@@ -525,68 +514,21 @@ function saveCoords_Callback(hObject, eventdata, handles)
 % hObject    handle to saveCoords (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-    screenRadius_ = str2num(get(handles.screenRadius,'String'));
-    screenX_ = str2num(get(handles.screenX,'String'));
-    screenY_ = str2num(get(handles.screenY,'String'));
-    screenZ_ = str2num(get(handles.screenZ,'String'));
-    
-    mirrorRadius_ = str2num(get(handles.mirrorRadius,'String'));
-    mirrorX_ = str2num(get(handles.mirrorX,'String'));
-    mirrorY_ = str2num(get(handles.mirrorY,'String'));
-    mirrorZ_ = str2num(get(handles.mirrorZ,'String'));
-    
-    projectorX_ = str2num(get(handles.projectorX,'String'));
-    projectorY_ = str2num(get(handles.projectorY,'String'));
-    projectorZ_ = str2num(get(handles.projectorZ,'String'));
-    
-    x0_ = str2num(get(handles.x0,'String'));
-    y0_ = str2num(get(handles.y0,'String'));
-    x1_ = str2num(get(handles.x1,'String'));
-    y1_ = str2num(get(handles.y1,'String'));
-    x2_ = str2num(get(handles.x2,'String'));
-    y2_ = str2num(get(handles.y2,'String'));
-    
-    coordsPath = fullfile(fileparts(mfilename('fullpath')), 'coords.mat');
-    save(coordsPath,'screenRadius_','screenX_','screenY_','screenZ_', 'mirrorRadius_','mirrorX_','mirrorY_','mirrorZ_', 'projectorX_','projectorY_','projectorZ_', ...
-                 'x0_','y0_','x1_','y1_','x2_','y2_');
-function handles = loadSavedCoordsIntoGui(handles)
-coordsPath = fullfile(fileparts(mfilename('fullpath')), 'coords.mat');
-if ~exist(coordsPath, 'file') && exist('coords.mat', 'file')
-    coordsPath = 'coords.mat';
-end
-
-if ~exist(coordsPath, 'file')
+[coords, isValid] = tryReadCalibrationCoords(handles);
+if ~isValid
     return;
 end
+saveCalibrationCoords(coords);
 
+function handles = loadSavedCoordsIntoGui(handles)
 try
-    coords = load(coordsPath);
-    setCoordString(handles, 'screenRadius', coords, 'screenRadius_');
-    setCoordString(handles, 'screenX', coords, 'screenX_');
-    setCoordString(handles, 'screenY', coords, 'screenY_');
-    setCoordString(handles, 'screenZ', coords, 'screenZ_');
-    setCoordString(handles, 'mirrorRadius', coords, 'mirrorRadius_');
-    setCoordString(handles, 'mirrorX', coords, 'mirrorX_');
-    setCoordString(handles, 'mirrorY', coords, 'mirrorY_');
-    setCoordString(handles, 'mirrorZ', coords, 'mirrorZ_');
-    setCoordString(handles, 'projectorX', coords, 'projectorX_');
-    setCoordString(handles, 'projectorY', coords, 'projectorY_');
-    setCoordString(handles, 'projectorZ', coords, 'projectorZ_');
-    setCoordString(handles, 'x0', coords, 'x0_');
-    setCoordString(handles, 'y0', coords, 'y0_');
-    setCoordString(handles, 'x1', coords, 'x1_');
-    setCoordString(handles, 'y1', coords, 'y1_');
-    setCoordString(handles, 'x2', coords, 'x2_');
-    setCoordString(handles, 'y2', coords, 'y2_');
+    coords = loadCalibrationCoords();
+    handles = applyCalibrationCoordsToHandles(handles, coords);
 catch ME
     warning('ConfigureProjectorOnline:LoadCoordsFailed', ...
         'Could not load saved coords.mat values: %s', ME.message);
 end
 
-function setCoordString(handles, handleName, coords, coordName)
-if isfield(handles, handleName) && isfield(coords, coordName)
-    set(handles.(handleName), 'String', num2str(coords.(coordName), 15));
-end
 function handles = setupOnlineCalibrationControls(handles, parentFigure)
 fieldNames = getCalibrationFieldNames();
 for i = 1:numel(fieldNames)
@@ -601,6 +543,60 @@ for i = 1:numel(fieldNames)
     set(editHandle, 'Callback', @(hObject,eventdata)onlineEdit_Callback(hObject, eventdata));
 end
 
+function addV2CalibrationPath()
+v2Path = fullfile(fileparts(mfilename('fullpath')), 'v2');
+if exist(v2Path, 'dir') && ~contains(path, v2Path)
+    addpath(v2Path);
+end
+
+function handles = setupPatternModeControl(handles, parentFigure)
+existingControl = findobj(parentFigure, 'Tag', 'visualGridMode');
+if ~isempty(existingControl)
+    handles.visualGridMode = existingControl(1);
+    return;
+end
+
+handles.visualGridMode = uicontrol('Parent', parentFigure, ...
+    'Style', 'checkbox', ...
+    'Units', 'normalized', ...
+    'Position', [0.72 0.94 0.24 0.035], ...
+    'String', 'Visual grid', ...
+    'Value', 0, ...
+    'Tag', 'visualGridMode', ...
+    'BackgroundColor', get(parentFigure, 'Color'), ...
+    'Callback', @(hObject,eventdata)visualGridMode_Callback(hObject, eventdata));
+
+function visualGridMode_Callback(hObject, eventdata)
+parentFigure = ancestor(hObject, 'figure');
+handles = guidata(parentFigure);
+guidata(parentFigure, handles);
+regenerateStim_Callback(parentFigure, [], handles);
+
+function parentFigure = getParentFigure(hObject, handles)
+parentFigure = [];
+if nargin >= 1 && ~isempty(hObject) && ishghandle(hObject)
+    parentFigure = ancestor(hObject, 'figure');
+end
+if isempty(parentFigure) && nargin >= 2 && isstruct(handles) && isfield(handles, 'figure1') && ishghandle(handles.figure1)
+    parentFigure = handles.figure1;
+end
+
+function useVisualGrid = shouldUseVisualGrid(handles)
+useVisualGrid = false;
+if isstruct(handles) && isfield(handles, 'visualGridMode') && ishghandle(handles.visualGridMode)
+    useVisualGrid = get(handles.visualGridMode, 'Value') == 1;
+end
+
+function drawVisualCalibrationGrid(hFig, coords)
+if exist('generateCalibrationPatternV2', 'file') ~= 2
+    error('ConfigureProjectorOnline:MissingVisualGrid', ...
+        'generateCalibrationPatternV2.m was not found on the MATLAB path.');
+end
+generateCalibrationPatternV2('FigureHandle', hFig, ...
+    'FullScreen', false, ...
+    'CalibrationCoords', coords, ...
+    'XLimits', [-1140/912 1140/912], ...
+    'YLimits', [-1 1]);
 function addIncrementButtons(parentFigure, editHandle, fieldName, stepSize)
 buttonParent = get(editHandle, 'Parent');
 delete(findobj(buttonParent, 'Tag', ['inc_' fieldName]));
@@ -669,41 +665,19 @@ saveCurrentCoordsFromHandles(handles);
 regenerateStim_Callback(parentFigure, [], handles);
 
 function saveCurrentCoordsFromHandles(handles)
-screenRadius_ = str2num(get(handles.screenRadius,'String'));
-screenX_ = str2num(get(handles.screenX,'String'));
-screenY_ = str2num(get(handles.screenY,'String'));
-screenZ_ = str2num(get(handles.screenZ,'String'));
+[coords, isValid] = tryReadCalibrationCoords(handles);
+if ~isValid
+    return;
+end
+saveCalibrationCoords(coords);
 
-mirrorRadius_ = str2num(get(handles.mirrorRadius,'String'));
-mirrorX_ = str2num(get(handles.mirrorX,'String'));
-mirrorY_ = str2num(get(handles.mirrorY,'String'));
-mirrorZ_ = str2num(get(handles.mirrorZ,'String'));
-
-projectorX_ = str2num(get(handles.projectorX,'String'));
-projectorY_ = str2num(get(handles.projectorY,'String'));
-projectorZ_ = str2num(get(handles.projectorZ,'String'));
-
-x0_ = str2num(get(handles.x0,'String'));
-y0_ = str2num(get(handles.y0,'String'));
-x1_ = str2num(get(handles.x1,'String'));
-y1_ = str2num(get(handles.y1,'String'));
-x2_ = str2num(get(handles.x2,'String'));
-y2_ = str2num(get(handles.y2,'String'));
-
-coordsPath = fullfile(fileparts(mfilename('fullpath')), 'coords.mat');
-save(coordsPath,'screenRadius_','screenX_','screenY_','screenZ_', 'mirrorRadius_','mirrorX_','mirrorY_','mirrorZ_', 'projectorX_','projectorY_','projectorZ_', ...
-             'x0_','y0_','x1_','y1_','x2_','y2_');
-
-function fieldNames = getCalibrationFieldNames()
-fieldNames = {'screenRadius','screenX','screenY','screenZ', ...
-    'mirrorRadius','mirrorX','mirrorY','mirrorZ', ...
-    'projectorX','projectorY','projectorZ', ...
-    'x0','y0','x1','y1','x2','y2'};
-
-function stepSize = getCalibrationStepSize(fieldName)
-switch fieldName
-    case {'x0','y0','x1','y1','x2','y2'}
-        stepSize = 0.01;
-    otherwise
-        stepSize = .1;
+function [coords, isValid] = tryReadCalibrationCoords(handles)
+try
+    coords = readCalibrationCoordsFromHandles(handles);
+    isValid = true;
+catch ME
+    coords = struct();
+    isValid = false;
+    warning('ConfigureProjectorOnline:InvalidCalibrationValue', ...
+        'Could not read calibration values: %s', ME.message);
 end

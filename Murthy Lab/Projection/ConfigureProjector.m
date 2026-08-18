@@ -113,22 +113,9 @@ global h4 seth4
 %             h4=figure('OuterPosition',[0 0 1 1]);
 %         disp('ok?')
     end
-    h4 = generateDome_shruthi(screenRadius_,screenX_,screenY_,screenZ_, mirrorRadius_,mirrorX_,mirrorY_,mirrorZ_, projectorX_,projectorY_,projectorZ_, ...
+    h4 = generateDome_MASM(screenRadius_,screenX_,screenY_,screenZ_, mirrorRadius_,mirrorX_,mirrorY_,mirrorZ_, projectorX_,projectorY_,projectorZ_, ...
         x0_,y0_,x1_,y1_,x2_,y2_,h4);
-    
-    if exist('visualizeCalibratedBallImage', 'file') == 2
-        try
-            visualizeCalibratedBallImage(fullfile(pwd, 'calibratedBallImage.data'), 'points', 2, 'white');
-        catch ME
-            warning('ConfigureProjector:PreviewFailed', ...
-                'Could not preview calibratedBallImage.data: %s', ME.message);
-        end
-    end
-
-        
-
-
-
+    % Run visualizeCalibratedBallImage manually when a separate .data preview is needed.
 function mirrorRadius_Callback(hObject, eventdata, handles)
 % hObject    handle to mirrorRadius (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB

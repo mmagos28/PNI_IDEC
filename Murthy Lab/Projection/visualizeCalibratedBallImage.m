@@ -13,7 +13,7 @@ function hFig = visualizeCalibratedBallImage(dataFile, viewMode, monitorIndex, c
 %
 % By default this shows only the projector warp mesh, fullscreen on the
 % second monitor when available. The file is produced by
-% ConfigureProjector/generateDome_shruthi.
+% ConfigureProjector/generateDome_MASM.
 
 if nargin < 1 || isempty(dataFile)
     dataFile = findDefaultCalibrationFile();

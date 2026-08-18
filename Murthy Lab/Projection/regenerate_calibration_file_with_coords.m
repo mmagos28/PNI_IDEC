@@ -18,7 +18,7 @@ load('coords.mat')
 % h4=figure('OuterPosition',[10 10 1280 800]);
 h4=figure('OuterPosition',[0 0 1 1]);
 
-h4 = generateDome_shruthi(screenRadius_,screenX_,screenY_,screenZ_, mirrorRadius_,mirrorX_,mirrorY_,mirrorZ_, projectorX_,projectorY_,projectorZ_, ...
+h4 = generateDome_MASM(screenRadius_,screenX_,screenY_,screenZ_, mirrorRadius_,mirrorX_,mirrorY_,mirrorZ_, projectorX_,projectorY_,projectorZ_, ...
     x0_,y0_,x1_,y1_,x2_,y2_,h4);
 
 disp('Generated calibration file');

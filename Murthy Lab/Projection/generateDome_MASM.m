@@ -1,6 +1,6 @@
-function [h4]=generateDome_shruthi(Rs,xsm,ysm,zsm, r,xOm,yOm,zOm, xP1m,yP1m,zP1m, x0,y0,x1,y1,x2,y2,h4)
+function [h4]=generateDome_MASM(Rs,xsm,ysm,zsm, r,xOm,yOm,zOm, xP1m,yP1m,zP1m, x0,y0,x1,y1,x2,y2,h4)
 
-disp('Using generateDome_shruthi modified by MASM on shruthiBranch');
+disp('Using generateDome_MASM modified by MASM on MASMBranch');
 
 if nargin == 0
     localCoordsPath = fullfile(fileparts(mfilename('fullpath')), 'coords.mat');
@@ -9,10 +9,10 @@ if nargin == 0
     elseif exist('coords.mat', 'file')
         coords = load('coords.mat');
     else
-        error('generateDome_shruthi:MissingInputs', ...
-            ['generateDome_shruthi requires calibration coordinates. ', ...
+        error('generateDome_MASM:MissingInputs', ...
+            ['generateDome_MASM requires calibration coordinates. ', ...
              'Run ConfigureProjector and click Save Coords first, or call ', ...
-             'generateDome_shruthi with all geometry arguments.']);
+             'generateDome_MASM with all geometry arguments.']);
     end
 
     Rs = coords.screenRadius_;
@@ -34,7 +34,7 @@ if nargin == 0
     y2 = coords.y2_;
     h4 = [];
 elseif nargin < 17
-    error('generateDome_shruthi:MissingInputs', ...
+    error('generateDome_MASM:MissingInputs', ...
         ['Not enough input arguments. Use ConfigureProjector, run ', ...
          'regenerate_calibration_file_with_coords after saving coords.mat, ', ...
          'or pass all required geometry arguments.']);
@@ -42,7 +42,7 @@ elseif nargin < 18
     h4 = [];
 end
 
-%% Shruthi
+%% MASM
 
 % Rs = screen radius = 77mm
 % xsm, ysm, zsm = coordinates of center of screen relative to fly = 0
@@ -89,7 +89,7 @@ end
 % The projector is located at P1, the mirror is of radius r, and the 
 %position on the dome is P2. The path length from the projector to the 
 %mirror is L1, the path length from the dome to the mirror is L2.
-% Fermat’s principle states that light travels by the shortest route, so 
+% Fermatï¿½s principle states that light travels by the shortest route, so 
 %the reflection point on the mirror can be found by minimising the total 
 %light path length from the projector to the position on the dome, namely 
 %minimising (L1^2 + L2^2)^1/2
@@ -277,7 +277,7 @@ for jj=1:size(projGridE,2)
         % then x,y are simple cos/sin of the azimuth (again x is in the
         % direction toward the project, y is orthogonal/left of it, etc
         % [xVm,yVm,zVm]=sph2cart(azim,elevat,radius);
-        % ##################Shruthi
+        % ##################MASM
 
         % Rs = screen radius = 77mm
         % xsm, ysm, zsm = coordinates of center of screen relative to fly = 0
@@ -345,7 +345,7 @@ for jj=1:length(displayEls)
     else
         plot(HorizPx - x2, VerticPx - y2,'b+','LineWidth',2)
         
-        % Added by Shruthi
+        % Added by MASM
 %         disp(elevat * 180/pi);
     end
 end
@@ -397,7 +397,7 @@ if exist('WindowAPI', 'file') == 3 || exist('WindowAPI', 'file') == 2
         WindowAPI(h4, 'Position', 'full');
         usedWindowAPI = true;
     catch ME
-        warning('generateDome_shruthi:UnavailableWindowAPI', ...
+        warning('generateDome_MASM:UnavailableWindowAPI', ...
             'WindowAPI could not be used: %s. Using MATLAB figure positioning instead.', ME.message);
     end
 end
@@ -634,7 +634,7 @@ function [HorizPx,VerticPx] = getHorizVertFromAngles(elevat,azim,radius,Rs,r, xs
 %     VerticPx= 6.0*sinphi*cosalpha - 0.5104;   
 %     HorizPx= 6.0*sinphi*sinalpha - 0.0275;
 %     
-% %     Megan and Shruthi's expts
+% %     Megan and MASM's expts
 
 % AJC: WE SHOULD GIVE THIS PARAMETER A NAME AND MAKE IT SETABLE SOMEHOW
 %     VerticPx= 6.7*sinphi*cosalpha + 0.11; 
