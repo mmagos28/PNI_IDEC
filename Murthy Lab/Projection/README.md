@@ -2,6 +2,8 @@
 
 This folder contains MATLAB code for calibrating the dome projection system. The main workflow is controlled from `ConfigureProjectorOnline.m`, which lets the user enter the physical measurements of the system, update calibration parameters, preview the projection geometry, and generate the `calibratedBallImage.data` file used by the projection pipeline.
 
+Before running the code, download this full `Projection` folder to your computer and work from the local copy. MATLAB must be able to access the `.m`, `.fig`, `.mat`, `.data`, and `v2` files from the same local folder structure.
+
 ## Main Files
 
 - `ConfigureProjectorOnline.m`: main calibration GUI. This is the recommended entry point.
