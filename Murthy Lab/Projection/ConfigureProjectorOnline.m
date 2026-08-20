@@ -519,6 +519,7 @@ if ~isValid
     return;
 end
 saveCalibrationCoords(coords);
+writeProjectionParametersText(coords);
 
 function handles = loadSavedCoordsIntoGui(handles)
 try

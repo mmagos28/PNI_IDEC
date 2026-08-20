@@ -12,6 +12,13 @@ Before running the code, download this full `Projection` folder to your computer
 - `calibratedBallImage.data`: generated calibration map.
 - `v2/generateCalibrationPatternV2.m`: visual grid helper used as an auxiliary calibration view.
 
+## Screen Dimension Reference
+
+The Mini VR projection documentation describes the dome screen as a styrofoam sphere with an 18 inch outer diameter and a 16 inch inner diameter. Therefore, the default spherical screen radius used in this calibration folder is `proj_param_Rs = 8` inches.
+
+Reference: https://braincogs.github.io/building/projection.html
+
+The screen center coordinates (`proj_param_xsm`, `proj_param_ysm`, `proj_param_zsm`) still need to be measured on the actual rig relative to the animal eyes. The documentation provides the screen size, but not the final center position for each assembled setup.
 ## Basic Workflow
 
 1. Measure the original physical geometry of the projection system.

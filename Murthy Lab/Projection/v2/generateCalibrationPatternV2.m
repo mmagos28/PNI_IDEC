@@ -25,9 +25,11 @@ end
 
 ax = axes('Parent', hFig);
 hold(ax, 'on');
-axis(ax, 'equal');
 axis(ax, 'off');
-set(ax, 'Color', params.BackgroundColor, 'Position', [0 0 1 1]);
+set(ax, 'Color', params.BackgroundColor, ...
+    'Position', [0 0 1 1], ...
+    'DataAspectRatioMode', 'auto', ...
+    'PlotBoxAspectRatioMode', 'auto');
 xlim(ax, params.XLimits);
 ylim(ax, params.YLimits);
 
@@ -76,53 +78,108 @@ patch(ax, params.CenterHoleRadius*cos(theta), params.CenterHoleRadius*sin(theta)
 end
 
 function drawWarpedDomeGrid(ax, params, coords)
-azimuths = params.AzimuthMin:params.AngleStep:params.AzimuthMax;
-elevations = params.ElevationMax:-params.ElevationStep:params.ElevationMin;
-lineElevations = linspace(params.ElevationMax, params.ElevationMin, params.LineSamples);
-lineAzimuths = linspace(params.AzimuthMin, params.AzimuthMax, params.LineSamples);
+% Match generateDome_MASM exactly: same azimuth/elevation range and grid size.
+elevations = linspace(params.ElevationMax, params.ElevationMin, params.GridSize(1));
+azimuths = linspace(params.AzimuthMin, params.AzimuthMax, params.GridSize(2));
+[projGridE, projGridA] = meshgrid(elevations, azimuths);
+[xGrid, yGrid] = projectAngleGrid(projGridE, projGridA, coords);
 
-for azimuthDeg = azimuths
-    [x, y] = projectAngleSeries(lineElevations, azimuthDeg + zeros(size(lineElevations)), coords);
-    plot(ax, x, y, ...
+for rowIdx = 1:size(xGrid, 1)
+    plot(ax, xGrid(rowIdx, :), yGrid(rowIdx, :), ...
         'Color', params.GridColor, ...
         'LineWidth', params.LineWidth);
 end
 
-for elevationDeg = elevations
-    [x, y] = projectAngleSeries(elevationDeg + zeros(size(lineAzimuths)), lineAzimuths, coords);
-    plot(ax, x, y, ...
+for colIdx = 1:size(xGrid, 2)
+    plot(ax, xGrid(:, colIdx), yGrid(:, colIdx), ...
         'Color', params.GridColor, ...
         'LineWidth', params.LineWidth);
 end
 
-drawWarpedLabels(ax, params, coords);
-drawWarpedCenterMask(ax, params, coords);
+if params.ShowGridPoints
+    plot(ax, xGrid(:), yGrid(:), '.', ...
+        'Color', params.PointColor, ...
+        'MarkerSize', params.PointSize);
 end
 
-function drawWarpedLabels(ax, params, coords)
-labelElevation = params.LabelElevation;
-for azimuthDeg = params.LabelAngles
-    if azimuthDeg < params.AzimuthMin || azimuthDeg > params.AzimuthMax
+drawWarpedReferenceMarkers(ax, coords);
+drawCalibrationCross(ax, params, coords);
+end
+
+function drawCalibrationCross(ax, params, coords)
+if ~params.ShowCalibrationCross
+    return;
+end
+
+azimuthSamples = linspace(params.AzimuthMin, params.AzimuthMax, params.CrossSamples);
+elevationSamples = linspace(params.ElevationMax, params.ElevationMin, params.CrossSamples);
+
+[x, y] = projectAngleSeries(params.HorizonElevation + zeros(size(azimuthSamples)), azimuthSamples, coords);
+plot(ax, x, y, '-', ...
+    'Color', params.HorizonColor, ...
+    'LineWidth', params.CrossLineWidth, ...
+    'Clipping', 'off');
+
+[x, y] = projectAngleSeries(params.CenterHorizontalElevation + zeros(size(azimuthSamples)), azimuthSamples, coords);
+plot(ax, x, y, '-', ...
+    'Color', params.CenterHorizontalColor, ...
+    'LineWidth', params.CrossLineWidth, ...
+    'Clipping', 'off');
+
+[x, y] = projectAngleSeries(elevationSamples, params.CenterVerticalAzimuth + zeros(size(elevationSamples)), coords);
+plot(ax, x, y, '-', ...
+    'Color', params.CenterVerticalColor, ...
+    'LineWidth', params.CrossLineWidth, ...
+    'Clipping', 'off');
+
+for idx = 1:numel(params.ReferenceAzimuths)
+    [x, y] = projectAngleSeries(elevationSamples, params.ReferenceAzimuths(idx) + zeros(size(elevationSamples)), coords);
+    plot(ax, x, y, '-', ...
+        'Color', params.ReferenceAzimuthColor, ...
+        'LineWidth', params.CrossLineWidth, ...
+        'Clipping', 'off');
+end
+
+for idx = 1:numel(params.SideVerticalAzimuths)
+    [x, y] = projectAngleSeries(elevationSamples, params.SideVerticalAzimuths(idx) + zeros(size(elevationSamples)), coords);
+    plot(ax, x, y, '-', ...
+        'Color', params.SideVerticalColor, ...
+        'LineWidth', params.SideVerticalLineWidth, ...
+        'Clipping', 'off');
+end
+end
+
+function drawWarpedReferenceMarkers(ax, coords)
+displayEls = [0,-45,-90,-90, 0,-45, 0,-45, 0,-45, 0,-45];
+displayAzs = [0, 0, 0,-90, -45,-45, 45,45, 90,90, -90,-90];
+
+for idx = 1:numel(displayEls)
+    [x, y] = projectAngleSeries(displayEls(idx), displayAzs(idx), coords);
+    if ~isfinite(x) || ~isfinite(y)
         continue;
     end
-    [x, y] = projectAngleSeries(labelElevation, azimuthDeg, coords);
-    if isfinite(x) && isfinite(y)
-        text(ax, x, y, sprintf('%g', azimuthDeg), ...
-            'Color', params.LabelColor, ...
-            'FontSize', params.LabelFontSize, ...
-            'HorizontalAlignment', 'center', ...
-            'VerticalAlignment', 'middle');
+
+    if displayEls(idx) == -90
+        plot(ax, x, y, 'go', 'LineWidth', 5);
+    elseif displayEls(idx) == -45
+        plot(ax, x, y, 'yx', 'LineWidth', 5);
+    else
+        plot(ax, x, y, 'b+', 'LineWidth', 2);
     end
 end
 end
 
-function drawWarpedCenterMask(ax, params, coords)
-azimuths = linspace(params.AzimuthMin, params.AzimuthMax, params.LineSamples);
-elevations = params.CenterHoleElevation + zeros(size(azimuths));
-[x, y] = projectAngleSeries(elevations, azimuths, coords);
-plot(ax, x, y, ...
-    'Color', params.GridColor, ...
-    'LineWidth', params.LineWidth + 0.25);
+function [xGrid, yGrid] = projectAngleGrid(elevationDegGrid, azimuthDegGrid, coords)
+xGrid = nan(size(elevationDegGrid));
+yGrid = nan(size(elevationDegGrid));
+for idx = 1:numel(elevationDegGrid)
+    try
+        [xGrid(idx), yGrid(idx)] = projectDomeAngleV2(deg2rad(elevationDegGrid(idx)), deg2rad(azimuthDegGrid(idx)), coords);
+    catch
+        xGrid(idx) = nan;
+        yGrid(idx) = nan;
+    end
+end
 end
 
 function [x, y] = projectAngleSeries(elevationDeg, azimuthDeg, coords)
@@ -280,6 +337,24 @@ addParameter(parser, 'AzimuthMax', 150, @(value) isnumeric(value) && isscalar(va
 addParameter(parser, 'ElevationMin', -90, @(value) isnumeric(value) && isscalar(value));
 addParameter(parser, 'ElevationMax', 0, @(value) isnumeric(value) && isscalar(value));
 addParameter(parser, 'LineSamples', 160, @(value) isnumeric(value) && isscalar(value) && value > 2);
+addParameter(parser, 'GridSize', [34 34], @(value) isnumeric(value) && numel(value) == 2);
+addParameter(parser, 'ShowGridPoints', false, @(value) islogical(value) || isnumeric(value));
+addParameter(parser, 'PointColor', [1 0 0], @(value) isnumeric(value) && numel(value) == 3);
+addParameter(parser, 'PointSize', 8, @(value) isnumeric(value) && isscalar(value) && value > 0);
+addParameter(parser, 'ShowCalibrationCross', true, @(value) islogical(value) || isnumeric(value));
+addParameter(parser, 'CrossSamples', 240, @(value) isnumeric(value) && isscalar(value) && value > 2);
+addParameter(parser, 'CrossLineWidth', 4, @(value) isnumeric(value) && isscalar(value) && value > 0);
+addParameter(parser, 'CenterHorizontalElevation', -45, @(value) isnumeric(value) && isscalar(value));
+addParameter(parser, 'HorizonElevation', 0, @(value) isnumeric(value) && isscalar(value));
+addParameter(parser, 'CenterVerticalAzimuth', 0, @(value) isnumeric(value) && isscalar(value));
+addParameter(parser, 'ReferenceAzimuths', [-150 150], @isnumeric);
+addParameter(parser, 'SideVerticalAzimuths', [-90 90], @isnumeric);
+addParameter(parser, 'CenterHorizontalColor', [0 0.65 1], @(value) isnumeric(value) && numel(value) == 3);
+addParameter(parser, 'HorizonColor', [1 0 0.85], @(value) isnumeric(value) && numel(value) == 3);
+addParameter(parser, 'CenterVerticalColor', [0 1 0.55], @(value) isnumeric(value) && numel(value) == 3);
+addParameter(parser, 'SideVerticalColor', [0.25 1 0.75], @(value) isnumeric(value) && numel(value) == 3);
+addParameter(parser, 'SideVerticalLineWidth', 4.5, @(value) isnumeric(value) && isscalar(value) && value > 0);
+addParameter(parser, 'ReferenceAzimuthColor', [1 0 0.85], @(value) isnumeric(value) && numel(value) == 3);
 addParameter(parser, 'LabelAngles', [-90 -60 -40 -20 0 20 40 60 90], @isnumeric);
 addParameter(parser, 'LabelElevation', -86, @(value) isnumeric(value) && isscalar(value));
 addParameter(parser, 'LabelRadius', 0.94, @(value) isnumeric(value) && isscalar(value));
@@ -297,4 +372,6 @@ addParameter(parser, 'YLimits', [-1 1], @(value) isnumeric(value) && numel(value
 parse(parser, varargin{:});
 params = parser.Results;
 params.FullScreen = logical(params.FullScreen);
+params.ShowGridPoints = logical(params.ShowGridPoints);
+params.ShowCalibrationCross = logical(params.ShowCalibrationCross);
 end

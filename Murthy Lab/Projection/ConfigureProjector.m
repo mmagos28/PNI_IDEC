@@ -535,6 +535,8 @@ function saveCoords_Callback(hObject, eventdata, handles)
     coordsPath = fullfile(fileparts(mfilename('fullpath')), 'coords.mat');
     save(coordsPath,'screenRadius_','screenX_','screenY_','screenZ_', 'mirrorRadius_','mirrorX_','mirrorY_','mirrorZ_', 'projectorX_','projectorY_','projectorZ_', ...
                  'x0_','y0_','x1_','y1_','x2_','y2_');
+    coords = readCalibrationCoordsFromHandles(handles);
+    writeProjectionParametersText(coords);
 function handles = loadSavedCoordsIntoGui(handles)
 coordsPath = fullfile(fileparts(mfilename('fullpath')), 'coords.mat');
 if ~exist(coordsPath, 'file') && exist('coords.mat', 'file')
